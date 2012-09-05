@@ -3,12 +3,76 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <LinearLayout
+  <!--   <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="90dp"
         android:layout_marginRight="30dp"
         android:orientation="vertical" >
-    </LinearLayout>
+    </LinearLayout> -->
+
+    <TextView
+        android:id="@+id/questionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="47dp"
+        android:layout_marginTop="47dp"
+        android:text="@string/questionText"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="86dp"
+        android:text="@string/nextButton" />
+
+    <RadioButton
+        android:id="@+id/OptionradioButtonD"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/nextButton"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="26dp"
+        android:text="@string/OptionradioButtonD" />
+
+    <RadioButton
+        android:id="@+id/OptionradioButtonC"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/OptionradioButtonD"
+        android:layout_alignParentLeft="true"
+        android:text="@string/OptionradioButtonC" />
+
+    <RadioButton
+        android:id="@+id/OptionradioButtonB"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/OptionradioButtonC"
+        android:layout_alignParentLeft="true"
+        android:text="@string/OptionradioButtonB" />
+
+    <RadioButton
+        android:id="@+id/OptionradioButtonA"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/OptionradioButtonB"
+        android:layout_alignParentLeft="true"
+        android:text="@string/OptionradioButtonA" />
+
+    <TextView
+        android:id="@+id/questionCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/questionText"
+        android:layout_alignBottom="@+id/questionText"
+        android:layout_alignParentLeft="true"
+        android:text="@string/questionCounter"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

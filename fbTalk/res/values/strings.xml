@@ -4,5 +4,12 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_my_friend_list">MyFriendList</string>
+    <string name="nextButton">Next</string>
+    <string name="OptionradioButtonA">Here goes option A</string>
+    <string name="OptionradioButtonB">here goes option B</string>
+    <string name="OptionradioButtonC">here goes option C</string>
+    <string name="OptionradioButtonD">here goes option D</string>
+    <string name="questionCounter">1234567</string>
+    <string name="questionText">Question goes here ???</string>
 
 </resources>
