@@ -11,5 +11,6 @@
     <string name="OptionradioButtonD">here goes option D</string>
     <string name="questionCounter">1234567</string>
     <string name="questionText">Question goes here ???</string>
+    <string name="questClockCounter">00</string>
 
 </resources>
