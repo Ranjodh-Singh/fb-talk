@@ -1,46 +1,57 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollViewWelcome"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFFF99" >
+    android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/welcomeLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp"
-        android:text="@string/welcomeText"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/welcomeText"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/welcomeLabel"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="19dp"
-        android:text="@string/welcomeText" />
+        android:layout_height="match_parent"
+        android:background="#FFFF99" >
 
-    <TextView
-        android:id="@+id/instructionLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/welcomeLabel"
-        android:layout_below="@+id/welcomeText"
-        android:layout_marginTop="46dp"
-        android:text="@string/instructionLabel"
-        android:textSize="20dp" />
+        <TextView
+            android:id="@+id/welcomeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="19dp"
+            android:text="@string/welcomeLabel"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/instructionText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/instructionLabel"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="18dp"
-        android:text="@string/instructionText" />
+        <TextView
+            android:id="@+id/welcomeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/welcomeLabel"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/right"
+            android:layout_marginRight="@dimen/right"
+            android:layout_marginTop="19dp"
+            android:text="@string/welcomeText"
+             />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/instructionLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/welcomeLabel"
+            android:layout_below="@+id/welcomeText"
+            android:layout_marginTop="46dp"
+            android:text="@string/instructionLabel"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/instructionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/instructionLabel"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="@dimen/right"
+            android:layout_marginTop="18dp"
+            android:text="@string/instructionText" />
+    </RelativeLayout>
+
+</ScrollView>
