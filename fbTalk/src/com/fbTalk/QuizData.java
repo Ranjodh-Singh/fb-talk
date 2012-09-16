@@ -7,17 +7,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-
-
 public class QuizData {
 
+	
 	 private static final String TAG = QuizData.class.getSimpleName();
 
 	  static final int VERSION = 1;
 	  /*
 	   * name of the database and the table with question and related data.
 	   */
-	  static final String DATABASE = "Quiz.db";
+	  static final String DATABASE = "rquiz.db";
 	  static final String TABLE = "question";
 
 	  public static final String C_ID = "_id";

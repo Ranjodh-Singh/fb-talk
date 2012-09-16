@@ -19,12 +19,16 @@
       </string>
     <string name="welcomeLabel">Welcome to Quiz</string>
     <string name="instructionLabel">Instructions</string>
-    <string name="instructionText">1. Time for each quiz would be 30 minutes."\n"
+    <string name="instructionText"> 1. Time for each quiz would be 30 minutes."\n"
         2. All questions are single answer questions."\n"
         3. You are not allowed to edit the answer once u moved forward without skipping a particular quetion."\n"
         4. You can skip the question by long pressing Next Button."\n"
         5. You can select the particular subject and topic."\n"
         6. No Negative marking."\n"
         </string>
+    <string name="startButton">Start</string>
+   <!--  <string name="hostUri">mongodb://ds037447.mongolab.com:37447</string>
+    <string name="hostuser">ranjodh</string>
+    <string name="hostpass">ranjodh</string> -->
 
 </resources>

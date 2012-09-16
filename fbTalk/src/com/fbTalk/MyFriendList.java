@@ -26,7 +26,7 @@ public class MyFriendList extends Activity {
          questionText= (TextView)findViewById(R.id.questionText);
     	 radioGroup = (RadioGroup)findViewById(R.id.radioGroup1);
     	 nextButton = (Button)findViewById(R.id.nextButton);
-    	 backButton = (Button)findViewById(R.id.nextButton);
+    	 backButton = (Button)findViewById(R.id.backButton);
     }
 
     @Override
