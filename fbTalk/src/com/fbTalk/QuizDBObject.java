@@ -1,7 +1,5 @@
 package com.fbTalk;
 
-import java.util.Date;
-
 import com.mongodb.BasicDBObject;
 
 public class QuizDBObject extends BasicDBObject {
@@ -56,10 +54,10 @@ public class QuizDBObject extends BasicDBObject {
 	public void setOptionD(String optionD) {
 		this.optionD = optionD;
 	}
-	public Date getCreatedAt() {
+	public String getCreatedAt() {
 		return createdAt;
 	}
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
 	}
 	public String getIsActive() {
@@ -74,7 +72,7 @@ public class QuizDBObject extends BasicDBObject {
 	private String optionB;
 	private String optionC;
 	private String optionD;
-	private Date createdAt;
+	private String createdAt;
 	private String isActive;
 	
 	

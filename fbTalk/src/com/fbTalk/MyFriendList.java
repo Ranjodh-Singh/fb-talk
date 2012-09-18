@@ -6,6 +6,8 @@ import java.util.List;
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -23,7 +25,10 @@ public class MyFriendList extends Activity {
 	private QuizApplication quizapp;
 	private QuizData quizData;
 	private Cursor cursor;
-    @Override
+    LoaderManager loaderManager;
+    CursorLoader cursorLoader;
+    @SuppressWarnings("deprecation")
+	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_friend_list);
@@ -37,6 +42,8 @@ public class MyFriendList extends Activity {
     	 quizapp = (QuizApplication)getApplication();
     	 this.quizData=quizapp.getQuizData();
     	 cursor = quizData.getALLQuestionUpdatesOrderByCreatedAT();
+    	 startManagingCursor(cursor);
+    	 
     	 
     	 
     }
@@ -45,8 +52,17 @@ public class MyFriendList extends Activity {
     	List<QuizDBObject> quizDBObjectList = new ArrayList<QuizDBObject>();
     	c.moveToFirst();
     	for (c.moveToFirst();!c.isAfterLast();c.moveToNext() ) {
-    		
-			
+    		QuizDBObject quizDBObject = new QuizDBObject();
+    		quizDBObject.setIndex(c.getLong(0));
+    		quizDBObject.setQuestion(c.getString(1));
+    		quizDBObject.setOptionA(c.getString(2));
+    		quizDBObject.setOptionB(c.getString(3));
+    		quizDBObject.setOptionC(c.getString(4));
+    		quizDBObject.setOptionD(c.getString(5));
+    		quizDBObject.setAnswer(c.getString(6));
+    		quizDBObject.setCreatedAt(c.getString(7));
+    		quizDBObject.setIsActive(c.getString(8));
+    		quizDBObjectList.add(quizDBObject);
 		}
     	
     	
