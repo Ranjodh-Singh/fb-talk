@@ -12,6 +12,7 @@ import android.widget.Button;
 public class QuizMain extends Activity {
 	Button startButton;
 	Context context;
+	QuizApplication quizapp = (QuizApplication)getApplication();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,11 @@ public class QuizMain extends Activity {
         startButton.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
+				if(quizapp.getQuizData().getALLQuestionUpdatesOrderByCreatedAT().getCount() < 30){
+				setProgressBarIndeterminateVisibility(true);
+				quizapp.fetchQuizQuestions();
+				setProgressBarIndeterminate(false);
+				}
 				Intent intent = new Intent();
 				intent.setClass(context, MyFriendList.class);
 				startActivity(intent);

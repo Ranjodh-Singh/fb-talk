@@ -93,7 +93,7 @@ public class QuizData {
 	   * 
 	   * @return Cursor where the columns are going to be id, created_at, user, txt
 	   */
-	  public Cursor getALLQuestionUpdatesOrderBy() {
+	  public Cursor getALLQuestionUpdatesOrderByCreatedAT() {
 	    SQLiteDatabase db = this.dbHelper.getReadableDatabase();
 	    return db.query(TABLE, null, null, null, null, null, GET_ALL_ORDER_BY);
 	  }
