@@ -33,8 +33,8 @@ OnSharedPreferenceChangeListener {
 	  public static final long QUIZ_LENGTH = 30;
 	  private SharedPreferences prefs;
 	  private QuizData quizData;
-	  Mongo m;
-	  String uriHost;
+	  private Mongo m;
+	  private String uriHost;
 	  public void onCreate() {
 		    super.onCreate();
 		    this.prefs = PreferenceManager.getDefaultSharedPreferences(this);
