@@ -1,16 +1,13 @@
 package com.fbTalk;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
-import android.database.Cursor;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.LoaderManager;
-import android.support.v4.content.CursorLoader;
 import android.view.Menu;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
@@ -24,14 +21,16 @@ public class MyFriendList extends Activity {
 	Chronometer quizTimer;
 	private QuizApplication quizapp;
 	private QuizData quizData;
-	private Cursor cursor;
-    LoaderManager loaderManager;
-    CursorLoader cursorLoader;
-    @SuppressWarnings("deprecation")
+	QuizDBObject question;
+	
+	
+    
+    
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_friend_list);
+        
          quizTimer=(Chronometer)findViewById(R.id.quizClockCounter);
          quizTimer.start();
          questionCounter= (TextView)findViewById(R.id.questionCounter);
@@ -41,35 +40,106 @@ public class MyFriendList extends Activity {
     	 backButton = (Button)findViewById(R.id.backButton);
     	 quizapp = (QuizApplication)getApplication();
     	 this.quizData=quizapp.getQuizData();
-    	 cursor = quizData.getALLQuestionUpdatesOrderByCreatedAT();
-    	 startManagingCursor(cursor);
-    	 
+    	 /*quizapp.setCursor(quizData.getALLQuestionUpdatesOrderByCreatedAT());*/
+    	 this.setQuestions();
+    	 nextButton.setOnClickListener(btnNext_Listener);
     	 
     	 
     }
+	  private View.OnClickListener btnNext_Listener= new View.OnClickListener() {
 
-    public List<QuizDBObject> getQuizDbObjectList(Cursor c ){
-    	List<QuizDBObject> quizDBObjectList = new ArrayList<QuizDBObject>();
-    	c.moveToFirst();
-    	for (c.moveToFirst();!c.isAfterLast();c.moveToNext() ) {
-    		QuizDBObject quizDBObject = new QuizDBObject();
-    		quizDBObject.setIndex(c.getLong(0));
-    		quizDBObject.setQuestion(c.getString(1));
-    		quizDBObject.setOptionA(c.getString(2));
-    		quizDBObject.setOptionB(c.getString(3));
-    		quizDBObject.setOptionC(c.getString(4));
-    		quizDBObject.setOptionD(c.getString(5));
-    		quizDBObject.setAnswer(c.getString(6));
-    		quizDBObject.setCreatedAt(c.getString(7));
-    		quizDBObject.setIsActive(c.getString(8));
-    		quizDBObjectList.add(quizDBObject);
+		  public void onClick(View v) {
+			  if(!checkAnswer()) {
+				  return ;
+				  }
+			  if(question.getIndex()==quizapp.QUIZ_LENGTH){
+				 //create a new activity to show the result and pass the intent to it. 
+				  
+			  }
+			  else {
+				  quizapp.increamentQuestionIndex();
+				  Intent i = new Intent(MyFriendList.this, MyFriendList.class);
+					startActivity(i);
+					finish();
+			  }
+			  
+		  }
+	  };
+
+    private void setQuestions() {
+    	
+    	TextView qIndexLabel= (TextView) findViewById(R.id.questionCounter);
+    	qIndexLabel.setText(quizapp.getQuestionIndex());
+		//set the question text from current question
+		question = quizapp.getQuestionObjectByIndex(quizapp.getQuestionIndex());
+        TextView qText = (TextView) findViewById(R.id.questionText);
+        qText.setText(question.getQuestion());
+        
+        //set the available options
+        
+        RadioButton option1 = (RadioButton) findViewById(R.id.OptionradioButtonA);
+        option1.setText(question.getOptionA());
+        
+        RadioButton option2 = (RadioButton) findViewById(R.id.OptionradioButtonB);
+        option2.setText(question.getOptionB());
+        
+        RadioButton option3 = (RadioButton) findViewById(R.id.OptionradioButtonC);
+        option3.setText(question.getOptionC());
+        
+        RadioButton option4 = (RadioButton) findViewById(R.id.OptionradioButtonD);
+        option4.setText(question.getOptionD());
+        
+	}
+    
+	/**
+	 * 
+	 */
+	private String getSelectedAnswer() {
+		RadioButton c1 = (RadioButton)findViewById(R.id.OptionradioButtonA);
+		RadioButton c2 = (RadioButton)findViewById(R.id.OptionradioButtonB);
+		RadioButton c3 = (RadioButton)findViewById(R.id.OptionradioButtonC);
+		RadioButton c4 = (RadioButton)findViewById(R.id.OptionradioButtonD);
+		if (c1.isChecked())
+		{
+			return c1.getText().toString();
 		}
-    	
-    	
-    	return quizDBObjectList ;
-    }
+		if (c2.isChecked())
+		{
+			return c2.getText().toString();
+		}
+		if (c3.isChecked())
+		{
+			return c3.getText().toString();
+		}
+		if (c4.isChecked())
+		{
+			return c4.getText().toString();
+		}
+		
+		return null;
+	}
     
-    
+	private boolean checkAnswer() {
+		String answer = getSelectedAnswer();
+		if (answer==null){
+			//Log.d("Questions", "No Checkbox selection made - returning");
+			return false;
+		}
+		else {
+			//Log.d("Questions", "Valid Checkbox selection made - check if correct");
+			if (question.getAnswer().equalsIgnoreCase(answer))
+			{
+				//Log.d("Questions", "Correct Answer!");
+				quizapp.getCorrectQuestionsList().add(question.getIndex());
+			}
+			else{
+				//Log.d("Questions", "Incorrect Answer!");
+				quizapp.getWrongQuestionsList().add(question.getIndex());
+			}
+			return true;
+		}
+	}
+	
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_my_friend_list, menu);

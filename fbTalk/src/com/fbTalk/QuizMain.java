@@ -12,22 +12,23 @@ import android.widget.Button;
 public class QuizMain extends Activity {
 	Button startButton;
 	Context context;
-	QuizApplication quizapp = (QuizApplication)getApplication();
+	QuizApplication quizapp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_main);
+        quizapp = (QuizApplication)getApplication();
         context=getApplicationContext();
         startButton=(Button)findViewById(R.id.startButton);
         startButton.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
-				if(quizapp.getQuizData().getALLQuestionUpdatesOrderByCreatedAT().getCount() < 30){
+				//if(quizapp.getQuizData().getALLQuestionUpdatesOrderByCreatedAT().getCount() < quizapp.QUIZ_LENGTH){
 				setProgressBarIndeterminateVisibility(true);
 				quizapp.fetchQuizQuestions();
 				setProgressBarIndeterminate(false);
-				}
+			//	}
 				Intent intent = new Intent();
 				intent.setClass(context, MyFriendList.class);
 				startActivity(intent);

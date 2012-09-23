@@ -13,24 +13,25 @@ public class QuizData {
 	 private static final String TAG = QuizData.class.getSimpleName();
 
 	  static final int VERSION = 1;
-	  /*
+	  /**
 	   * name of the database and the table with question and related data.
 	   */
 	  static final String DATABASE = "rquiz.db";
 	  static final String TABLE = "question";
 
 	  public static final String C_ID = "_id";
-	  /*
-	   * date at which question was created.
-	   */
-	  public static final String C_CREATED_AT = "created_at";
+	  public static final String C_INDEX="index";
 	  public static final String C_QUESTTION = "question";
 	  public static final String C_OPTIONA = "optiona";
 	  public static final String C_OPTIONB = "optionb";
 	  public static final String C_OPTIONC = "optionc";
 	  public static final String C_OPTIOND = "optiond";
 	  public static final String C_ANSWER = "answer";
-	  /*
+	  /**
+	   * date at which question was created.
+	   */
+	  public static final String C_CREATED_AT = "created_at";
+	  /**
 	   * is active 1 if the question added by the user is approved by the administrator.
 	   * else 0 for pending approval.
 	   */
@@ -44,7 +45,7 @@ public class QuizData {
 	  private static final String[] MAX_CREATED_AT_COLUMNS = { "max("
 	      + QuizData.C_CREATED_AT + ")" };
 
-	  private static final String[] DB_TEXT_COLUMNS = { C_QUESTTION,C_OPTIONA, C_OPTIONB ,C_OPTIONC, C_OPTIOND,C_ANSWER ,C_ACTIVE };
+	  private static final String[] DB_TEXT_COLUMNS = {C_INDEX, C_QUESTTION,C_OPTIONA, C_OPTIONB ,C_OPTIONC, C_OPTIOND,C_ANSWER ,C_ACTIVE };
 
 	  // DbHelper implementations
 	  class DbHelper extends SQLiteOpenHelper {
@@ -56,8 +57,11 @@ public class QuizData {
 	    @Override
 	    public void onCreate(SQLiteDatabase db) {
 	      Log.i(TAG, "Creating database: " + DATABASE);
+	      db = dbHelper.getWritableDatabase();
 	      db.execSQL("create table " + TABLE + " (" + C_ID + " int primary key, "
-	          + C_CREATED_AT + " int, " + C_QUESTTION + " text, " + C_OPTIONA + " text, "+ C_OPTIONB+" text,"+C_OPTIONC +" text,"+ C_OPTIOND+" text,"+C_ANSWER +" text,"+ C_ACTIVE+" text)" );
+	          + C_CREATED_AT + " int, " + C_INDEX +" int , "+ C_QUESTTION + " text, " + C_OPTIONA + " text, "+ C_OPTIONB+" text,"+C_OPTIONC +" text,"+ C_OPTIOND+" text,"+C_ANSWER +" text,"+ C_ACTIVE+" text)" );
+	      
+	 
 	    }
 
 	    @Override
@@ -113,13 +117,26 @@ public class QuizData {
 	    }
 	  }
 
-	  public String getQuestionbyID(long id) {
+	  public QuizDBObject getQuestionbyIndex(long index) {
 	    SQLiteDatabase db = this.dbHelper.getReadableDatabase();
+	    QuizDBObject quizDBObject = new QuizDBObject();
 	    try {
-	      Cursor cursor = db.query(TABLE, DB_TEXT_COLUMNS, C_ID + "=" + id, null,
+	      Cursor cursor = db.query(TABLE, DB_TEXT_COLUMNS, C_INDEX + "=" + index, null,
 	          null, null, null);
 	      try {
-	        return cursor.moveToNext() ? cursor.getString(0) : null;
+	        if(cursor.moveToNext()){
+	        	quizDBObject.setIndex(cursor.getLong(cursor.getColumnIndex(C_INDEX)));
+	    		quizDBObject.setQuestion(cursor.getString(cursor.getColumnIndex(C_QUESTTION)));
+	    		quizDBObject.setOptionA(cursor.getString(cursor.getColumnIndex(C_OPTIONA)));
+	    		quizDBObject.setOptionB(cursor.getString(cursor.getColumnIndex(C_OPTIONB)));
+	    		quizDBObject.setOptionC(cursor.getString(cursor.getColumnIndex(C_OPTIONC)));
+	    		quizDBObject.setOptionD(cursor.getString(cursor.getColumnIndex(C_OPTIOND)));
+	    		quizDBObject.setAnswer(cursor.getString(cursor.getColumnIndex(C_ANSWER)));
+	    		quizDBObject.setCreatedAt(cursor.getString(cursor.getColumnIndex(C_CREATED_AT)));
+	    		quizDBObject.setIsActive(cursor.getString(cursor.getColumnIndex(C_ACTIVE)));
+	    		return quizDBObject;
+	        }
+	        else return null;
 	      } finally {
 	        cursor.close();
 	      }

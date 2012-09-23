@@ -6,20 +6,27 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="QuizApplication"
+        android:allowTaskReparenting="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Light" android:name="QuizApplication" android:permission="android.permission.INTERNET" android:allowTaskReparenting="true">
+        android:permission="android.permission.INTERNET"
+        android:theme="@android:style/Theme.Light" >
         <activity
             android:name=".MyFriendList"
             android:label="@string/title_activity_my_friend_list" >
-            <!-- <intent-filter>
+
+            <!--
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter> -->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".QuizMain"
@@ -29,6 +36,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ResultActivity"
+            android:label="@string/title_activity_result" >
+            
         </activity>
     </application>
 

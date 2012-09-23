@@ -1,13 +1,32 @@
 package com.fbTalk;
 
-import com.mongodb.BasicDBObject;
 
-public class QuizDBObject extends BasicDBObject {
+public class QuizDBObject {
 
 	/**
 	 * this class will work as the place holder for the quiz object.
+	 * An extra variable is added to store answer given by user.
 	 */
 	private static final long serialVersionUID = 1L;
+	private String question;
+	private String answer;
+	private String optionA;
+	private String optionB;
+	private String optionC;
+	private String optionD;
+	private String createdAt;
+	private String isActive;
+	/**
+	 * for storing the answer given by the user for every question.
+	 */
+	private String userAnswer;
+	
+	public String getUserAnswer() {
+		return userAnswer;
+	}
+	public void setUserAnswer(String userAnswer) {
+		this.userAnswer = userAnswer;
+	}
 	public QuizDBObject(){
 		super();
 	}
@@ -66,14 +85,7 @@ public class QuizDBObject extends BasicDBObject {
 	public void setIsActive(String isActive) {
 		this.isActive = isActive;
 	}
-	private String question;
-	private String answer;
-	private String optionA;
-	private String optionB;
-	private String optionC;
-	private String optionD;
-	private String createdAt;
-	private String isActive;
+	
 	
 	
 	
