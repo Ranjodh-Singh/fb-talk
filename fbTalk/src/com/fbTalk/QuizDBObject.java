@@ -7,7 +7,8 @@ public class QuizDBObject {
 	 * this class will work as the place holder for the quiz object.
 	 * An extra variable is added to store answer given by user.
 	 */
-	private static final long serialVersionUID = 1L;
+	
+	private long index ;
 	private String question;
 	private String answer;
 	private String optionA;
@@ -30,7 +31,7 @@ public class QuizDBObject {
 	public QuizDBObject(){
 		super();
 	}
-	private long index ;
+	
 	public long getIndex() {
 		return index;
 	}

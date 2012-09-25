@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 
@@ -142,7 +143,7 @@ OnSharedPreferenceChangeListener {
 		  Log.d(TAG, "Fetching Quiz Questions");
 		  try {
 			  
-			  HttpPost mRequest = new HttpPost("https://api.mongolab.com/api/1/databases/rquiz/collections/question?apiKey=50385b5ae4b0f6b46150462a");    
+			  HttpGet mRequest = new HttpGet("https://api.mongolab.com/api/1/databases/rquiz/collections/question?apiKey=50385b5ae4b0f6b46150462a");    
 			  Log.d(TAG, "Fetching Quiz Questions Request ::::"+mRequest);   
 			  DefaultHttpClient client = new DefaultHttpClient();
 			  //In case you need cookies, you can store them with PersistenCookieStorage
@@ -154,11 +155,19 @@ OnSharedPreferenceChangeListener {
 			      InputStream source = response.getEntity().getContent();
 			      Log.d(TAG, "Fetching Quiz Questions source ::::"+source);
 			      Reader reader = new InputStreamReader(source);
-			      Log.d(TAG, "Fetching Quiz Questions reader ::::"+reader);
+			      
+			      StringBuilder builder = new StringBuilder();
+			        char[] buffer = new char[reader.toString().length()];
+			        int read;
+			        while ((read = reader.read(buffer, 0, buffer.length)) > 0) {
+			            builder.append(buffer, 0, read);
+			        }
+			        
+			      Log.d(TAG, "Fetching Quiz Questions reader ::::"+builder.toString());
 			      //GSON is one of the best alternatives for JSON parsing
 			  Gson gson = new Gson();
 			  Type typeOfCollectionOfQuizDBObject = new TypeToken<Collection<QuizDBObject>>(){}.getType();
-			  quizDBObjectList = gson.fromJson(reader, typeOfCollectionOfQuizDBObject);
+			  quizDBObjectList = gson.fromJson(/*reader.toString()*/builder.toString(), typeOfCollectionOfQuizDBObject);
 			  Log.d(TAG, "Fetching Quiz Questions user ::::"+quizDBObjectList);
 			      //At this point you can do whatever you need with your parsed object.
 
