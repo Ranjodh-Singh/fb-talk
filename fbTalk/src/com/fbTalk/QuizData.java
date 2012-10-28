@@ -1,5 +1,8 @@
 package com.fbTalk;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -59,7 +62,7 @@ public class QuizData {
 	      Log.i(TAG, "Creating database: " + DATABASE);
 	      db = dbHelper.getWritableDatabase();
 	      db.execSQL("create table " + TABLE + " (" + C_ID + " int primary key, "
-	          + C_CREATED_AT + " int, " + C_INDEX +" int , "+ C_QUESTTION + " text, " + C_OPTIONA + " text, "+ C_OPTIONB+" text,"+C_OPTIONC +" text,"+ C_OPTIOND+" text,"+C_ANSWER +" text,"+ C_ACTIVE+" text)" );
+	          + C_CREATED_AT + " text, " + C_INDEX +" int , "+ C_QUESTTION + " text, " + C_OPTIONA + " text, "+ C_OPTIONB+" text,"+C_OPTIONC +" text,"+ C_OPTIOND+" text,"+C_ANSWER +" text,"+ C_ACTIVE+" text)" );
 	      
 	 
 	    }
@@ -120,6 +123,8 @@ public class QuizData {
 	  public QuizDBObject getQuestionbyIndex(long index) {
 	    SQLiteDatabase db = this.dbHelper.getReadableDatabase();
 	    QuizDBObject quizDBObject = new QuizDBObject();
+	    DateFormat df = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz");
+	    
 	    try {
 	      Cursor cursor = db.query(TABLE, DB_TEXT_COLUMNS, C_INDEX + "=" + index, null,
 	          null, null, null);
@@ -127,13 +132,13 @@ public class QuizData {
 	        if(cursor.moveToNext()){
 	        	quizDBObject.setIndex(cursor.getLong(cursor.getColumnIndex(C_INDEX)));
 	    		quizDBObject.setQuestion(cursor.getString(cursor.getColumnIndex(C_QUESTTION)));
-	    		quizDBObject.setOptionA(cursor.getString(cursor.getColumnIndex(C_OPTIONA)));
-	    		quizDBObject.setOptionB(cursor.getString(cursor.getColumnIndex(C_OPTIONB)));
-	    		quizDBObject.setOptionC(cursor.getString(cursor.getColumnIndex(C_OPTIONC)));
-	    		quizDBObject.setOptionD(cursor.getString(cursor.getColumnIndex(C_OPTIOND)));
+	    		quizDBObject.setOptiona(cursor.getString(cursor.getColumnIndex(C_OPTIONA)));
+	    		quizDBObject.setOptionb(cursor.getString(cursor.getColumnIndex(C_OPTIONB)));
+	    		quizDBObject.setOptionc(cursor.getString(cursor.getColumnIndex(C_OPTIONC)));
+	    		quizDBObject.setOptiond(cursor.getString(cursor.getColumnIndex(C_OPTIOND)));
 	    		quizDBObject.setAnswer(cursor.getString(cursor.getColumnIndex(C_ANSWER)));
-	    		quizDBObject.setCreatedAt(cursor.getString(cursor.getColumnIndex(C_CREATED_AT)));
-	    		quizDBObject.setIsActive(cursor.getString(cursor.getColumnIndex(C_ACTIVE)));
+	    		quizDBObject.created_at.set$date(cursor.getString(cursor.getColumnIndex(C_CREATED_AT)));
+	    		quizDBObject.setActive(cursor.getString(cursor.getColumnIndex(C_ACTIVE)));
 	    		return quizDBObject;
 	        }
 	        else return null;

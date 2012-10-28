@@ -78,16 +78,16 @@ public class MyFriendList extends Activity {
         //set the available options
         
         RadioButton option1 = (RadioButton) findViewById(R.id.OptionradioButtonA);
-        option1.setText(question.getOptionA());
+        option1.setText(question.getOptiona());
         
         RadioButton option2 = (RadioButton) findViewById(R.id.OptionradioButtonB);
-        option2.setText(question.getOptionB());
+        option2.setText(question.getOptionb());
         
         RadioButton option3 = (RadioButton) findViewById(R.id.OptionradioButtonC);
-        option3.setText(question.getOptionC());
+        option3.setText(question.getOptionc());
         
         RadioButton option4 = (RadioButton) findViewById(R.id.OptionradioButtonD);
-        option4.setText(question.getOptionD());
+        option4.setText(question.getOptiond());
         
 	}
     

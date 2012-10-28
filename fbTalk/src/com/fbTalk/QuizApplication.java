@@ -7,6 +7,8 @@ import java.io.Reader;
 import java.lang.reflect.Type;
 import java.net.UnknownHostException;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -27,6 +29,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.mongodb.DBObject;
 import com.mongodb.Mongo;
@@ -135,10 +138,12 @@ OnSharedPreferenceChangeListener {
 		  }
 	
 
-	  public synchronized int fetchQuizQuestions(){
+	  @SuppressWarnings({ "unchecked" })
+	public synchronized int fetchQuizQuestions(){
 		  List <QuizDBObject> quizDBObjectList = null;
 		  int count=0;
-		  long totalDocuments=0;
+		 /* long totalDocuments=0;*/
+		   
 		   
 		  Log.d(TAG, "Fetching Quiz Questions");
 		  try {
@@ -163,11 +168,13 @@ OnSharedPreferenceChangeListener {
 			            builder.append(buffer, 0, read);
 			        }
 			        
+			    //  Log.d(TAG, "Fetching Quiz Questions reader ::::"+builder.substring(builder.length()-20));
 			      Log.d(TAG, "Fetching Quiz Questions reader ::::"+builder.toString());
 			      //GSON is one of the best alternatives for JSON parsing
-			  Gson gson = new Gson();
-			  Type typeOfCollectionOfQuizDBObject = new TypeToken<Collection<QuizDBObject>>(){}.getType();
-			  quizDBObjectList = gson.fromJson(/*reader.toString()*/builder.toString(), typeOfCollectionOfQuizDBObject);
+			  Gson gson = new GsonBuilder()
+			   .setDateFormat(DateFormat.FULL, DateFormat.FULL).create();
+			  Type typeOfCollectionOfQuizDBObject = new TypeToken<List <QuizDBObject>>(){}.getType();
+			   quizDBObjectList = (List <QuizDBObject>)gson.fromJson(/*reader.toString()*/builder.toString(), typeOfCollectionOfQuizDBObject);
 			  Log.d(TAG, "Fetching Quiz Questions user ::::"+quizDBObjectList);
 			      //At this point you can do whatever you need with your parsed object.
 
@@ -212,13 +219,13 @@ OnSharedPreferenceChangeListener {
 							/*DBObject tableDBObject = cursor.next();*/	
 							values.put(QuizData.C_INDEX,/*(String)tableDBObject.get(QuizData.C_INDEX)*/quizObject.getIndex());
 							values.put(QuizData.C_QUESTTION,/*(String)tableDBObject.get(QuizData.C_QUESTTION)*/quizObject.getQuestion());
-							values.put(QuizData.C_OPTIONA,/*(String)tableDBObject.get(QuizData.C_OPTIONA)*/quizObject.getOptionA());
-							values.put(QuizData.C_OPTIONB,/*(String)tableDBObject.get(QuizData.C_OPTIONB)*/quizObject.getOptionB());
-							values.put(QuizData.C_OPTIONC,/*(String)tableDBObject.get(QuizData.C_OPTIONC)*/quizObject.getOptionC());
-							values.put(QuizData.C_OPTIOND,/*(String)tableDBObject.get(QuizData.C_OPTIOND)*/quizObject.getOptionD());
+							values.put(QuizData.C_OPTIONA,/*(String)tableDBObject.get(QuizData.C_OPTIONA)*/quizObject.getOptiona());
+							values.put(QuizData.C_OPTIONB,/*(String)tableDBObject.get(QuizData.C_OPTIONB)*/quizObject.getOptionb());
+							values.put(QuizData.C_OPTIONC,/*(String)tableDBObject.get(QuizData.C_OPTIONC)*/quizObject.getOptionc());
+							values.put(QuizData.C_OPTIOND,/*(String)tableDBObject.get(QuizData.C_OPTIOND)*/quizObject.getOptiond());
 							values.put(QuizData.C_ANSWER,/*(String)tableDBObject.get(QuizData.C_ANSWER)*/quizObject.getAnswer());
-							values.put(QuizData.C_CREATED_AT,/*((Date)tableDBObject.get(QuizData.C_CREATED_AT)).getTime()*/quizObject.getCreatedAt());
-							values.put(QuizData.C_ACTIVE,/*(String)tableDBObject.get(QuizData.C_ACTIVE)*/quizObject.getIsActive());
+							values.put(QuizData.C_CREATED_AT,/*((Date)tableDBObject.get(QuizData.C_CREATED_AT)).getTime()*/quizObject.getCreated_at().get$date());
+							values.put(QuizData.C_ACTIVE,/*(String)tableDBObject.get(QuizData.C_ACTIVE)*/quizObject.getActive());
 							Log.d(TAG, "Got updates for " + quizObject + ". Saving");
 							this.getQuizData().insertOrIgnore(values);
 							Log.d(TAG, "cursor found values and count is : "+count);
